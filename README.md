@@ -1,5 +1,5 @@
 # The-Peculiar-Expedition-First-Java-Game-
-
+![image](https://user-images.githubusercontent.com/68961069/192540617-3caf35dd-8531-47e4-9a1d-702eaf77ef03.png)
 A feladat egy egyszemélyes játék megvalósítása Java 
 nyelven. A játékban felfedezőt kell alakítanunk, aki hajóra száll 
 és veszedelmes tájakon igyekszik összegyűjteni az ott elrejtett 
@@ -9,7 +9,7 @@ felfedező címéért, amelyet 5 küldetés után a legtöbb hírnévvel
 rendelkező felfedező kap. <br>
 A felfedező minden térkép elején 100 energiával
 (amely a maximum) és 250 arannyal indul, amelyet a 
-küldetések között elkölthet:![image](https://user-images.githubusercontent.com/68961069/192540617-3caf35dd-8531-47e4-9a1d-702eaf77ef03.png)
+küldetések között elkölthet:
 
 • élelmiszerekre, amelyek véges számban rendelkezésre állnak a kikötőben
 • egyéb tárgyakra vagy társakra.
