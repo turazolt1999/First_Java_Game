@@ -9,7 +9,8 @@ felfedező címéért, amelyet 5 küldetés után a legtöbb hírnévvel
 rendelkező felfedező kap. <br>
 A felfedező minden térkép elején 100 energiával
 (amely a maximum) és 250 arannyal indul, amelyet a 
-küldetések között elkölthet:
+küldetések között elkölthet:![image](https://user-images.githubusercontent.com/68961069/192540617-3caf35dd-8531-47e4-9a1d-702eaf77ef03.png)
+
 • élelmiszerekre, amelyek véges számban rendelkezésre állnak a kikötőben
 • egyéb tárgyakra vagy társakra.
 A játékos csak bizonyos számú tárgyat vihet magával a terepen, ezeket inventory slot-okon tároljuk. 
