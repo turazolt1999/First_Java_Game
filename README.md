@@ -1,5 +1,5 @@
 # The-Peculiar-Expedition-First-Java-Game-
-![image](https://user-images.githubusercontent.com/68961069/192540617-3caf35dd-8531-47e4-9a1d-702eaf77ef03.png)
+![image](https://user-images.githubusercontent.com/68961069/192540617-3caf35dd-8531-47e4-9a1d-702eaf77ef03.png) <br>
 A feladat egy egyszemélyes játék megvalósítása Java 
 nyelven. A játékban felfedezőt kell alakítanunk, aki hajóra száll 
 és veszedelmes tájakon igyekszik összegyűjteni az ott elrejtett 
@@ -11,8 +11,8 @@ A felfedező minden térkép elején 100 energiával
 (amely a maximum) és 250 arannyal indul, amelyet a 
 küldetések között elkölthet:
 
-• élelmiszerekre, amelyek véges számban rendelkezésre állnak a kikötőben
-• egyéb tárgyakra vagy társakra.
+• élelmiszerekre, amelyek véges számban rendelkezésre állnak a kikötőben<br>
+• egyéb tárgyakra vagy társakra.<br>
 A játékos csak bizonyos számú tárgyat vihet magával a terepen, ezeket inventory slot-okon tároljuk. 
 Minden felfedező 8 slottal rendelkezik. Ha ennél több van nála, akkor minden mozgás költség plusz 
 slotonként +20%-kal növekszik. Egy slotra csak azonos tárgyak kerülhetnek, egy tárgyból 7 darab 
@@ -24,7 +24,7 @@ alkoholista lesz, illetve a kábítószer ugyanígy függőséget okoz. Függős
 lépésben nem kapott az alany a kiváltó élelmiszerből, akkor lépésenként 10% eséllyel elhagyja a 
 csapatot. Amennyiben az energia elfogy, minden csapattag lépésenként 8% eséllyel elhagyhatja a 
 csapatot. A felfedező ilyenkor csak akkor hagyja el a csapatot, ha már csak egyedül van. Ilyen 
-esetben a játékos veszít. Pihenéskor az energia visszatöltődik 100-ra.
+esetben a játékos veszít. Pihenéskor az energia visszatöltődik 100-ra.<br>
 Minden küldetés előtt ajánl a játék egy csapattársat, amelyet vagy felveszünk, vagy nem, 
 ezek lehetnek: Kereskedő (mindent kicsivel olcsóbban vehetünk és drágábban adhatunk el), 
 Katona (a Whiskey +20% energia), Szamár (+2 Inventory slot). A térképen falvakkal is 
