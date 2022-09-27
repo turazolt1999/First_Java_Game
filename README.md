@@ -15,15 +15,15 @@ küldetések között elkölthet:
 • egyéb tárgyakra vagy társakra.<br>
 A játékos csak bizonyos számú tárgyat vihet magával a terepen, ezeket inventory slot-okon tároljuk. 
 Minden felfedező 8 slottal rendelkezik. Ha ennél több van nála, akkor minden mozgás költség plusz 
-slotonként +20%-kal növekszik. Egy slotra csak azonos tárgyak kerülhetnek, egy tárgyból 7 darab 
-ugyanolyan (pl. 7 fáklya), ennél több új slotra kerül. Kincsekből csak egy lehet egy sloton.
+slotonként +20%-kal növekszik. <br> Egy slotra csak azonos tárgyak kerülhetnek, egy tárgyból 7 darab 
+ugyanolyan (pl. 7 fáklya), ennél több új slotra kerül. <br>Kincsekből csak egy lehet egy sloton.
 Az energiát fel lehet tölteni különböző élelmiszerek fogyasztásával, ilyenek Gyümölcs +15, 
-Hús +25, Csokoládé +20, Kábítószer +20, Whiskey +20. Amennyiben az utolsó két fogyasztott 
+Hús +25, Csokoládé +20, Kábítószer +20, Whiskey +20. <br>Amennyiben az utolsó két fogyasztott 
 élelmiszer Whiskey, minden Whiskey fogyasztásnál 15% eséllyel egy csapattárs vagy a felfedező 
-alkoholista lesz, illetve a kábítószer ugyanígy függőséget okoz. Függőségnél, ha az utóbbi 30 
+alkoholista lesz, illetve a kábítószer ugyanígy függőséget okoz. <br> Függőségnél, ha az utóbbi 30 
 lépésben nem kapott az alany a kiváltó élelmiszerből, akkor lépésenként 10% eséllyel elhagyja a 
 csapatot. Amennyiben az energia elfogy, minden csapattag lépésenként 8% eséllyel elhagyhatja a 
-csapatot. A felfedező ilyenkor csak akkor hagyja el a csapatot, ha már csak egyedül van. Ilyen 
+csapatot. A felfedező ilyenkor csak akkor hagyja el a csapatot, ha már csak egyedül van. <br>Ilyen 
 esetben a játékos veszít. Pihenéskor az energia visszatöltődik 100-ra.<br>
 Minden küldetés előtt ajánl a játék egy csapattársat, amelyet vagy felveszünk, vagy nem, 
 ezek lehetnek: Kereskedő (mindent kicsivel olcsóbban vehetünk és drágábban adhatunk el), 
