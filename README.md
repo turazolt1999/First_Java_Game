@@ -38,9 +38,9 @@ viszony nem falunként, hanem a teljes pályára értelmezendő.
 Beüzemelés:
 
 IntelliJ Idea:
-1. Megnyitod az Ideá-t
+1. Megnyitod az Idea-t
 2. File -> Open...
 3. Keresd meg ahová kibontattad fájlt
 pld.: C:\The Peculiar Expedition
 4. Ok gomb megnyomása
-5. Main osztályt Rud-old
+5. Main osztályt Rud-ld
