@@ -33,3 +33,14 @@ találkozhatunk, ahol legalább 2 viszony esetén 20%-os eséllyel ajánlanak ne
 új csapattárs felvétele mindig 150 aranyba kerül, egyszerre maximum 3 csapattársunk lehet. Minden 
 új csapattárs 15%-kal növeli a mozgás energiaköltségét. Minden pályán 3 viszonnyal indulunk, a 
 viszony nem falunként, hanem a teljes pályára értelmezendő.
+
+<br>
+Beüzemelés:
+
+IntelliJ Idea:
+1. Megnyitod az Ideá-t
+2. File -> Open...
+3. Keresd meg ahová kibontattad fájlt
+pld.: C:\The Peculiar Expedition
+4. Ok gomb megnyomása
+5. Main osztályt Rud-old
