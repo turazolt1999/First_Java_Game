@@ -6,7 +6,7 @@ nyelven. A játékban felfedezőt kell alakítanunk, aki hajóra száll
 kincseket és a legendás Arany piramist! A felfedező sajnos 
 nincs egyedül, más felfedezőkkel kell versengenie a legjobb 
 felfedező címéért, amelyet 5 küldetés után a legtöbb hírnévvel 
-rendelkező felfedező kap. 
+rendelkező felfedező kap. <br>
 A felfedező minden térkép elején 100 energiával
 (amely a maximum) és 250 arannyal indul, amelyet a 
 küldetések között elkölthet:
