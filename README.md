@@ -5,6 +5,14 @@
 ## Projekt Áttekintés
 A **The Peculiar Expedition** egy egyjátékos kalandjáték, amelyet Java-ban fejlesztettek. A játékban egy felfedező bőrébe bújva egy veszélyes útra indulunk, hogy felfedezzük a rejtett kincseket és a legendás Arany Piramist. Az úton versenyeznünk kell rivális felfedezőkkel, hogy megszerezzük a legnagyobb kalandor címet, amelyet az öt expedíció során szerzett hírnév alapján ítélnek oda.
 
+## Játék Indítása
+
+A játék elindításához a következő lépéseket kell követned:
+
+1. Töltsd le a projektet, és navigálj az **src** mappába.
+2. A **Main** osztály a projekt belépési pontja, így azt kell elindítani.
+3. Ha Java fejlesztői környezetet (IDE) használsz, például IntelliJ IDEA-t vagy Eclipse-t, akkor egyszerűen keresd meg a **Main** osztályt, és futtasd a projektet.
+
 ## Játék Jellemzők
 
 ### Alapjáték
