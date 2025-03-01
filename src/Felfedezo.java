@@ -21,6 +21,7 @@ public class Felfedezo {
     public int viszony = 3;
     public int kincs_mennyiseg;
     public int fugg_mennyiseg;
+    public boolean sikeres_nev_valtoztats=false;
 
     public Felfedezo(String nev) {
         this.nev = nev;
@@ -37,10 +38,6 @@ public class Felfedezo {
 
     public String getNev() {
         return nev;
-    }
-
-    public void setNev(String nev) {
-        this.nev = nev;
     }
 
     public double getEnergia() {
@@ -77,6 +74,15 @@ public class Felfedezo {
 
     public int getHirnev() {
         return hirnev;
+    }
+
+    public void setNev(String nev) {
+        this.nev = nev;
+        this.sikeres_nev_valtoztats = true;
+    }
+
+    public boolean isSikeres_nev_valtoztats() {
+        return sikeres_nev_valtoztats;
     }
 
     public void setHirnev(int hirnev) {
@@ -119,15 +125,6 @@ public class Felfedezo {
      * Csokkenti a mozgas energiajat
      */
     public void mozgas() {
-        this.mozgas_energia=1;
-        for (int i=0; i<this.tarsak.size(); i++) {
-            this.mozgas_energia=this.mozgas_energia * 115 / 100;
-        }
-        for (int i=0; i<this.getSlotok().targyak.size(); i++) {
-            if (i > this.slotok.slotMax-1) {
-                this.mozgas_energia=this.mozgas_energia * 120 / 100;
-            }
-        }
         this.energia = this.energia - this.mozgas_energia;
         if (this.energia < 0) {
             this.energia = 0;
@@ -143,6 +140,8 @@ public class Felfedezo {
         Inventory uj = this.slotok.elhasznal(this, mit);
         if (uj != null) {
             this.elHasznal.add(uj);
+        } else {
+            System.err.println("Nincs ilyen termék");
         }
     }
 
@@ -155,15 +154,15 @@ public class Felfedezo {
         int darab = this.elHasznal.size() - 1;
         if (darab >= 1) {
             if (elHasznal.get(darab).getNev() == "Whiskey" && elHasznal.get(darab - 1).getNev() == "Whiskey") {
-                this.fugg_mennyiseg = this.fugg_mennyiseg + 1;
+                this.fugg_mennyiseg=this.fugg_mennyiseg+1;
                 return true;
             }
             if (elHasznal.get(darab).getNev() == "Kábítószer" && elHasznal.get(darab - 1).getNev() == "Kábítószer") {
-                this.fugg_mennyiseg = this.fugg_mennyiseg + 1;
+                this.fugg_mennyiseg=this.fugg_mennyiseg+1;
                 return true;
             }
         }
-        this.fugg_mennyiseg = 0;
+        this.fugg_mennyiseg=0;
         return false;
     }
 
@@ -233,7 +232,7 @@ public class Felfedezo {
                 } else if (this.slotok.getTargyak().get(i).getNev() == "Csokoládé" || this.slotok.getTargyak().get(i).getNev() == "Kábítószer" || this.slotok.getTargyak().get(i).getNev() == "Whiskey") {
                     this.elHasznal.add(mit);
                     if (utolsoItalok()) {
-                        int szazelek = this.fugg_mennyiseg * 15;
+                        int szazelek = this.fugg_mennyiseg*15;
                         if (rand <= szazelek && (mit.getNev() == "Whiskey" || mit.getNev() == "Kábítószer")) {
                             this.fuggo = true;
                         }
@@ -263,7 +262,7 @@ public class Felfedezo {
      * Tarsad hozzaad
      *
      * @param tars Tars parametere
-     * @return Hozzaadja vagy nem
+     * @return     Hozzaadja vagy nem
      */
     public boolean tarsAdd(Tars tars) {
         this.arany = this.arany - tars.getAr();
@@ -276,6 +275,7 @@ public class Felfedezo {
         }
         if (this.arany >= 0 && tarsak.size() < 3) {
             tarsak.add(tars);
+            this.mozgas_energia = this.mozgas_energia * 115 / 100;
             return true;
         } else {
             this.arany = this.arany + tars.getAr();
@@ -360,6 +360,9 @@ public class Felfedezo {
             if (this.slotok.getTargyak().get(i).getNev() == kincs.getNev()) {
                 this.hirnev = this.hirnev + kincs.getHirnev();
                 this.slotok.getTargyak().remove(i);
+                if (this.tarsak.size() == 0) {
+                    this.mozgas_energia = 1;
+                }
                 this.kincs_mennyiseg = 0;
             }
         }

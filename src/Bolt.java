@@ -48,7 +48,7 @@ public class Bolt {
      * Adott bolti targy leirasa
      *
      * @param melyik Tárgy paramétere
-     * @return Az adott tárgyat
+     * @return       Az adott tárgyat
      */
     public Inventory printProducts(Inventory melyik) {
         for (int i = 0; i < this.targyak.size(); i++) {

@@ -73,7 +73,7 @@ public class Kezdolap extends JFrame implements ActionListener {
      * A logo megjelenitese
      */
     public void logo() {
-        ImageIcon image1 = new ImageIcon("img/title3.png");
+        ImageIcon image1 = new ImageIcon("img/title32.png");
 
         logo.setIcon(image1);
         logo.setVerticalAlignment(JLabel.CENTER);

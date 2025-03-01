@@ -71,6 +71,7 @@ public class Display implements ActionListener {
     public JLayeredPane layerPanel = new JLayeredPane();
 
     public JLabel[][] palya_elemek = new JLabel[13][13];
+    public JLabel nevkeres_label = new JLabel();
     public JLabel nev_label = new JLabel();
     public JLabel profilkep_label = new JLabel();
     public JLabel slot_label = new JLabel();
@@ -88,7 +89,6 @@ public class Display implements ActionListener {
     public JLabel rivalisok_label = new JLabel();
     public JLabel kincsleiras_label = new JLabel();
 
-    public JButton feladas_button = new JButton();
     public JButton nev_button = new JButton();
     public JButton vasarlas_button = new JButton();
     public JButton eladas_button = new JButton();
@@ -187,11 +187,11 @@ public class Display implements ActionListener {
         nev_panel.setBounds(400, 250, 300, 150);
         nev_panel.setLayout(null);
 
-        nev_label.setText("Írd be mi legyen a felfedező neve");
-        nev_label.setForeground(new Color(0xFFFFFF));
-        nev_label.setBounds(55, -10, 200, 100);
+        nevkeres_label.setText("Írd be mi legyen a felfedező neve");
+        nevkeres_label.setForeground(new Color(0xFFFFFF));
+        nevkeres_label.setBounds(55, -10, 200, 100);
 
-        nev_panel.add(nev_label);
+        nev_panel.add(nevkeres_label);
         nev_panel.add(nev_textfield);
         nev_panel.add(nev_button);
 
@@ -228,6 +228,11 @@ public class Display implements ActionListener {
      */
     public void label() {
         vege_label.setForeground(new Color(0));
+
+        nev_label.setFont(betutipus);
+        nev_label.setBounds(150, -80, 100, 300);
+        nev_label.setHorizontalTextPosition(JLabel.CENTER);
+        nev_label.setVerticalTextPosition(JLabel.BOTTOM);
 
         slot_label.setFont(betutipus);
         slot_label.setBounds(150, 0, 100, 300);
@@ -320,7 +325,6 @@ public class Display implements ActionListener {
             le_button.setEnabled(false);
             plusz_energia_button.setEnabled(false);
             vasarlas_button.setEnabled(false);
-            hajoslot_button.setEnabled(false);
             if (this.arany_piramis_megvan) {
                 vege_panel.setVisible(true);
                 vissza_button.setVisible(true);
@@ -375,7 +379,7 @@ public class Display implements ActionListener {
                 vege_label.setBounds(20, 20, 260, 230);
                 kilepes_button.setBounds(93, 250, 120, 35);
                 vege_label.setText("<html><p style=\"text-align: center\"><br>SAJNÁLOM VÉGE A JÁTÉKNAK<br>" +
-                        "Elfogyott az életerőd és egy csapattársad sincs már, vagy feladtad!<br>" +
+                        "Elfogyott az életerőd és egy csapattársad sincs már!" +
                         "Itt vannak veled együtt az összes felfeldező, akik részt vettek a kalandba!<br>" +
                         "Nézd meg hogy teljesítettél többiekhez képest!</p><br>" +
                         "<table style=\"text-align: center\">" +
@@ -460,13 +464,6 @@ public class Display implements ActionListener {
         hajoraLe_button.setFocusable(false);
         hajoraLe_button.setFont(new Font("Comic Sans", Font.PLAIN, 13));
         hajoraLe_button.setBackground(new Color(0x928B06));
-
-        feladas_button.setBounds(160, 455, 80, 25);
-        feladas_button.addActionListener(this);
-        feladas_button.setText("Feladás");
-        feladas_button.setFocusable(false);
-        feladas_button.setFont(new Font("Comic Sans", Font.PLAIN, 13));
-        feladas_button.setBackground(new Color(0x928B06));
 
         tars_vasarlas_button.setBounds(225, 523, 100, 30);
         tars_vasarlas_button.addActionListener(this);
@@ -581,7 +578,7 @@ public class Display implements ActionListener {
         ImageIcon nedves_oltar_photo = new ImageIcon("img/terkep/nedves_oltar.png");
         ImageIcon nedves_fuvek_photo = new ImageIcon("img/terkep/mini/nedves_fuvek.png");
 
-        int rand = randi.nextInt(101);
+        int rand = randi.nextInt(6) + 1;
         System.out.println(rand);
         String[] elemek = {
                 "TTTFCCFTGDFDT",
@@ -597,11 +594,8 @@ public class Display implements ActionListener {
         int a = 0;
         Scanner scanner = null;
         String map;
-        if (rand >= 50) {
-            map = "terkep/elso.txt";
-        } else {
-            map = "terkep/elso.txt";
-        }
+        map = "terkep/"+ rand + ".txt";
+
         try {
             scanner = new Scanner(new File(map));
             while (scanner.hasNextLine()) {
@@ -748,9 +742,13 @@ public class Display implements ActionListener {
         }
         if (felfedezo.isFuggo()) {
             fuggoseg = "Függő lett!";
+            karakter_info_panel.setBackground(new Color(0xD85959));
+            this.latokor = 0;
         } else {
             fuggoseg = "Nincs függősége";
+            karakter_info_panel.setBackground(new Color(0x81B171));
             this.reszeg_lepes = 0;
+            this.latokor = 1;
         }
         double energia = felfedezo.getEnergia();
         if (energia <= 0) {
@@ -758,6 +756,9 @@ public class Display implements ActionListener {
         }
 
         String felfedezo_energia = String.format("%.2f", energia);
+        if (felfedezo.isSikeres_nev_valtoztats()) {
+            nev_label.setText("<html><b>"+ felfedezo.getNev() +"</b></html>");
+        }
         slot_label.setText("<html><b>Slot</b> : <br><p style=\"text-align: top\"><table>" + inventory + " </p><br></table></html>");
         tarsak_label.setText("<html><b>Társak</b> : <p style=\"text-align: center\">" + tarsak + " </p></html>");
         profilkep_label.setText("<html><b>Energia</b> : " + felfedezo_energia + " " +
@@ -769,6 +770,7 @@ public class Display implements ActionListener {
                 "<br> <b>" + fuggoseg + "</b></html>");
 
         karakter_info_panel.add(profilkep_label);
+        karakter_info_panel.add(nev_label);
         karakter_info_panel.add(slot_label);
         karakter_info_panel.add(plusz_energia_button);
         karakter_info_panel.add(elel_box);
@@ -781,6 +783,18 @@ public class Display implements ActionListener {
             }
         }
         plusz_energia_button.setEnabled(db > 0);
+        if (felfedezo.tarsak.size() == 0) {
+            felfedezo.mozgas_energia = 1;
+        }
+        if (felfedezo.tarsak.size() == 1) {
+            felfedezo.mozgas_energia = 1.2;
+        }
+        if (felfedezo.tarsak.size() == 2) {
+            felfedezo.mozgas_energia = 1.44;
+        }
+        if (felfedezo.tarsak.size() == 3) {
+            felfedezo.mozgas_energia = 1.73;
+        }
     }
 
     /**
@@ -1020,73 +1034,12 @@ public class Display implements ActionListener {
         }
 
         palya_elemek[y][x].setVisible(true);
-        if (y < 8 && x < 12) {
-            palya_elemek[y + 1][x].setVisible(true);
-            palya_elemek[y + 1][x + 1].setVisible(true);
-            palya_elemek[y][x + 1].setVisible(true);
-            if (latokor == 2) {
-                if (y < 7 && x < 11) {
-                    palya_elemek[y][x + 2].setVisible(true);
-                    palya_elemek[y + 1][x + 2].setVisible(true);
-                    palya_elemek[y + 2][x + 2].setVisible(true);
-                    palya_elemek[y + 2][x + 1].setVisible(true);
-                    palya_elemek[y + 2][x].setVisible(true);
-                }
-                if (y < 7 && x == 11 && y > 1) {
-                    palya_elemek[y + 2][x + 1].setVisible(true);
-                    palya_elemek[y - 2][x + 1].setVisible(true);
-                }
-            }
-        }
-        if (y > 0 && x > 0) {
-            palya_elemek[y - 1][x].setVisible(true);
-            palya_elemek[y - 1][x - 1].setVisible(true);
-            palya_elemek[y][x - 1].setVisible(true);
-            if (latokor == 2) {
-                if (y > 1 && x > 1) {
-                    palya_elemek[y - 2][x].setVisible(true);
-                    palya_elemek[y - 2][x - 1].setVisible(true);
-                    palya_elemek[y - 2][x - 2].setVisible(true);
-                    palya_elemek[y - 1][x - 2].setVisible(true);
-                    palya_elemek[y][x - 2].setVisible(true);
-                }
-                if (y > 1 && x == 1 && y < 7) {
-                    palya_elemek[y - 2][x - 1].setVisible(true);
-                    palya_elemek[y + 2][x - 1].setVisible(true);
-                }
-            }
-        }
-        if (x < 12 && y > 0) {
-            palya_elemek[y][x + 1].setVisible(true);
-            palya_elemek[y - 1][x + 1].setVisible(true);
-            if (latokor == 2) {
-                if (x < 11 && y > 1) {
-                    palya_elemek[y][x + 2].setVisible(true);
-                    palya_elemek[y - 1][x + 2].setVisible(true);
-                    palya_elemek[y - 2][x + 2].setVisible(true);
-                    palya_elemek[y - 2][x + 1].setVisible(true);
-                    palya_elemek[y - 2][x].setVisible(true);
-                }
-                if (y == 1 && x < 11 && x > 1) {
-                    palya_elemek[y - 1][x + 2].setVisible(true);
-                    palya_elemek[y - 1][x - 2].setVisible(true);
-                }
-            }
-        }
-        if (x > 0 && y < 8) {
-            palya_elemek[y][x - 1].setVisible(true);
-            palya_elemek[y + 1][x - 1].setVisible(true);
-            if (latokor == 2) {
-                if (x > 1 && y < 7) {
-                    palya_elemek[y][x - 2].setVisible(true);
-                    palya_elemek[y + 1][x - 2].setVisible(true);
-                    palya_elemek[y + 2][x - 2].setVisible(true);
-                    palya_elemek[y + 2][x - 1].setVisible(true);
-                    palya_elemek[y + 2][x].setVisible(true);
-                }
-                if (y == 7 && x > 1 && x < 11) {
-                    palya_elemek[y + 1][x - 2].setVisible(true);
-                    palya_elemek[y + 1][x + 2].setVisible(true);
+
+        for (int i = -latokor; i <= latokor; i++) {
+            for (int j = -latokor; j <= latokor; j++) {
+                if (i == 0 && j == 0) continue;
+                if (y + i >= 0 && y + i < 9 && x + j >= 0 && x + j < 13) {
+                    palya_elemek[y + i][x + j].setVisible(true);
                 }
             }
         }
@@ -1228,7 +1181,6 @@ public class Display implements ActionListener {
                 vasar_panel.add(tars_eloszor_box);
                 vasar_panel.add(tars_vasarlas_button);
                 vasar_panel.setVisible(true);
-
             } else {
                 String tars_vasarol = "";
                 if (felfedezo.getViszony() >= 2 && rand <= 20) {
@@ -1394,7 +1346,6 @@ public class Display implements ActionListener {
             hajoSlot_panel.add(hajoSlotTargy_label);
             hajoSlot_panel.add(hajoraLe_button);
             hajoSlot_panel.add(hajoraLevetel_box);
-            hajoSlot_panel.add(feladas_button);
 
             hajoSlot_panel.setVisible(true);
         } else {
@@ -1483,14 +1434,10 @@ public class Display implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
-        if (feladas_button.equals(source)) {
-            this.sajnos_vege = true;
-            this.hajoSlot_panel.setVisible(false);
-            vege(true);
-        }
         if (nev_button.equals(source)) {
             if (nev_textfield.getText().length() > 0 && nev_textfield.getText().length() <= 25) {
                 felfedezo.setNev(nev_textfield.getText());
+                karakter_infok(felfedezo);
                 nev_panel.setVisible(false);
                 fel_button.setEnabled(true);
                 le_button.setEnabled(true);
@@ -1877,7 +1824,7 @@ public class Display implements ActionListener {
         if (fel_button.equals(source)) {
             if (this.y > 0) {
                 if (felfedezo.isHajonvane()) {
-                    if (palya_elemek[y - 1][x].getText().equals("T") && !palya_elemek[y - 1][x].getText().equals("G")) {
+                    if (palya_elemek[y - 1][x].getText().equals("T")) {
                         karakter_body_label.setVisible(false);
                         felfedezo.mozgas();
                         if (felfedezo.utolsoItalok()) {
@@ -1886,22 +1833,20 @@ public class Display implements ActionListener {
                         mozgas(this.x, this.y -= 1);
                         karakter_body_label.setVisible(true);
                     } else {
-                        if (!palya_elemek[y - 1][x].getText().equals("G")) {
-                            karakter_body_label.setVisible(false);
-                            felfedezo.setHajonvane(false);
-                            felfedezo.mozgas();
-                            if (felfedezo.utolsoItalok()) {
-                                this.reszeg_lepes++;
-                            }
-                            mozgas(this.x, this.y -= 1);
-                            if (!felfedezo.isHajonvane()) {
-                                hajo_y = this.y + 1;
-                                hajo_x = this.x;
-                                hajo_koordinata(hajo_x, hajo_y);
-                                hajo_body_label.setVisible(true);
-                            }
-                            karakter_body_label.setVisible(true);
+                        karakter_body_label.setVisible(false);
+                        felfedezo.setHajonvane(false);
+                        felfedezo.mozgas();
+                        if (felfedezo.utolsoItalok()) {
+                            this.reszeg_lepes++;
                         }
+                        mozgas(this.x, this.y -= 1);
+                        if (!felfedezo.isHajonvane()) {
+                            hajo_y = this.y + 1;
+                            hajo_x = this.x;
+                            hajo_koordinata(hajo_x, hajo_y);
+                            hajo_body_label.setVisible(true);
+                        }
+                        karakter_body_label.setVisible(true);
                     }
                 } else {
                     if (!palya_elemek[y - 1][x].getText().equals("T") && !palya_elemek[y - 1][x].getText().equals("O") && !palya_elemek[y - 1][x].getText().equals("G")) {
@@ -1938,19 +1883,17 @@ public class Display implements ActionListener {
                         mozgas(this.x, this.y += 1);
                         karakter_body_label.setVisible(true);
                     } else {
-                        if (!palya_elemek[y + 1][x].getText().equals("G")) {
-                            karakter_body_label.setVisible(false);
-                            felfedezo.setHajonvane(false);
-                            felfedezo.mozgas();
-                            mozgas(this.x, this.y += 1);
-                            if (!felfedezo.isHajonvane()) {
-                                hajo_y = this.y - 1;
-                                hajo_x = this.x;
-                                hajo_koordinata(hajo_x, hajo_y);
-                                hajo_body_label.setVisible(true);
-                            }
-                            karakter_body_label.setVisible(true);
+                        karakter_body_label.setVisible(false);
+                        felfedezo.setHajonvane(false);
+                        felfedezo.mozgas();
+                        mozgas(this.x, this.y += 1);
+                        if (!felfedezo.isHajonvane()) {
+                            hajo_y = this.y - 1;
+                            hajo_x = this.x;
+                            hajo_koordinata(hajo_x, hajo_y);
+                            hajo_body_label.setVisible(true);
                         }
+                        karakter_body_label.setVisible(true);
                     }
                 } else {
                     if (!palya_elemek[y + 1][x].getText().equals("T") && !palya_elemek[y + 1][x].getText().equals("O") && !palya_elemek[y + 1][x].getText().equals("G")) {
@@ -1990,22 +1933,20 @@ public class Display implements ActionListener {
                         mozgas(this.x += 1, this.y);
                         karakter_body_label.setVisible(true);
                     } else {
-                        if (!palya_elemek[y][x + 1].getText().equals("G")) {
-                            karakter_body_label.setVisible(false);
-                            felfedezo.setHajonvane(false);
-                            felfedezo.mozgas();
-                            if (felfedezo.utolsoItalok()) {
-                                this.reszeg_lepes++;
-                            }
-                            mozgas(this.x += 1, this.y);
-                            if (!felfedezo.isHajonvane()) {
-                                hajo_y = this.y;
-                                hajo_x = this.x - 1;
-                                hajo_koordinata(hajo_x, hajo_y);
-                                hajo_body_label.setVisible(true);
-                            }
-                            karakter_body_label.setVisible(true);
+                        karakter_body_label.setVisible(false);
+                        felfedezo.setHajonvane(false);
+                        felfedezo.mozgas();
+                        if (felfedezo.utolsoItalok()) {
+                            this.reszeg_lepes++;
                         }
+                        mozgas(this.x += 1, this.y);
+                        if (!felfedezo.isHajonvane()) {
+                            hajo_y = this.y;
+                            hajo_x = this.x - 1;
+                            hajo_koordinata(hajo_x, hajo_y);
+                            hajo_body_label.setVisible(true);
+                        }
+                        karakter_body_label.setVisible(true);
                     }
                 } else {
                     if (!palya_elemek[y][x + 1].getText().equals("T") && !palya_elemek[y][x + 1].getText().equals("O") && !palya_elemek[y][x + 1].getText().equals("G")) {
@@ -2045,22 +1986,20 @@ public class Display implements ActionListener {
                         mozgas(this.x -= 1, this.y);
                         karakter_body_label.setVisible(true);
                     } else {
-                        if (!palya_elemek[y][x - 1].getText().equals("G")) {
-                            karakter_body_label.setVisible(false);
-                            felfedezo.setHajonvane(false);
-                            felfedezo.mozgas();
-                            if (felfedezo.utolsoItalok()) {
-                                this.reszeg_lepes++;
-                            }
-                            mozgas(this.x -= 1, this.y);
-                            if (!felfedezo.isHajonvane()) {
-                                hajo_y = this.y;
-                                hajo_x = this.x + 1;
-                                hajo_koordinata(hajo_x, hajo_y);
-                                hajo_body_label.setVisible(true);
-                            }
-                            karakter_body_label.setVisible(true);
+                        karakter_body_label.setVisible(false);
+                        felfedezo.setHajonvane(false);
+                        felfedezo.mozgas();
+                        if (felfedezo.utolsoItalok()) {
+                            this.reszeg_lepes++;
                         }
+                        mozgas(this.x -= 1, this.y);
+                        if (!felfedezo.isHajonvane()) {
+                            hajo_y = this.y;
+                            hajo_x = this.x + 1;
+                            hajo_koordinata(hajo_x, hajo_y);
+                            hajo_body_label.setVisible(true);
+                        }
+                        karakter_body_label.setVisible(true);
                     }
                 } else {
                     if (!palya_elemek[y][x - 1].getText().equals("T") && !palya_elemek[y][x - 1].getText().equals("O") && !palya_elemek[y][x - 1].getText().equals("G")) {

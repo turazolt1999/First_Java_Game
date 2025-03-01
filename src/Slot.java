@@ -73,6 +73,9 @@ public class Slot {
                         System.out.println("Elfogyott");
                         break;
                     } else {
+                        if (this.targyak.size() > this.slotMax - 1) {
+                            felfedezo.setMozgas_energia(felfedezo.getMozgas_energia() * 120 / 100);
+                        }
                         this.targyak.add(mit);
                         felfedezo.arany = felfedezo.arany - bolt.targyak.get(i).getAra();
                         bolt.termekElad(mit);
@@ -96,7 +99,7 @@ public class Slot {
      *
      * @param felfedezo A Jatakos
      * @param mit       Targy parametere
-     * @return Hozzáadja vagy nem
+     * @return          Hozzáadja vagy nem
      */
     public boolean kincsAdd(Felfedezo felfedezo, Inventory mit) {
         boolean vane = false;
@@ -107,6 +110,10 @@ public class Slot {
         }
         if (!vane) {
             targyak.add(mit);
+            if (this.targyak.size() > this.slotMax - 1) {
+                double jelenlegi = felfedezo.getMozgas_energia();
+                felfedezo.setMozgas_energia(jelenlegi * 120 / 100);
+            }
             return true;
         } else {
             System.err.println("Nem teheted el!");
