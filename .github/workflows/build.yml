@@ -1,0 +1,38 @@
+name: Java CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/sup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+
+      - name: Build JAR with IntelliJ artifacts
+        run: |
+          # Töltsd le az IntelliJ IDEA-t (ha szükséges)
+          # wget https://download.jetbrains.com/idea/ideaIC-2023.1.tar.gz
+          # tar -xzf ideaIC-2023.1.tar.gz
+
+          # Fordítsd le a projektet
+          javac src/*.java
+
+          # Hozd létre a JAR fájlt
+          jar cfm out/artifacts/First_Java_Game_jar/First_Java_Game.jar META-INF/MANIFEST.MF -C src .
+
+      - name: Upload JAR artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: game
+          path: out/artifacts/First_Java_Game_jar/First_Java_Game.jar
